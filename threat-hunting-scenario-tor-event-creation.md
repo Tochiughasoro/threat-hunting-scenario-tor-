@@ -1,18 +1,17 @@
 # Threat Event (Unauthorized TOR Usage)
 **Unauthorized TOR Browser Installation and Use**
 
-## Steps the "Bad Actor" took Create Logs and IoCs:
-1. Download the TOR browser installer: https://www.torproject.org/download/
-2. Install it silently: ```tor-browser-windows-x86_64-portable-14.0.1.exe /S```
-3. Opens the TOR browser from the folder on the desktop
-4. Connect to TOR and browse a few sites. For example:
-   - **WARNING: The links to onion sites change a lot and these have changed. However if you connect to Tor and browse around normal sites a bit, the necessary logs should still be created:**
+## Steps the "Bad Actor" took Created Logs and IoCs:
+1. Downloaded the TOR browser installer: https://www.torproject.org/download/
+2. Installed it silently: ```tor-browser-windows-x86_64-portable-15.0.13.exe /S```
+3. Opened the TOR browser from the folder on the desktop
+4. Connected to TOR and browse a few sites. For example:
    - Current Dread Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion```
    - Dark Markets Forum: ```dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion/d/DarkNetMarkets```
    - Current Elysium Market: ```elysiumutkwscnmdohj23gkcyp3ebrf4iio3sngc5tvcgyfp4nqqmwad.top/login```
 
-6. Create a folder on your desktop called ```tor-shopping-list.txt``` and put a few fake (illicit) items in there
-7. Delete the file.
+6. Created a folder on your desktop called ```tor-shopping-list.txt``` and I put a few fake (illicit) items in there
+7. Deleted the file.
 
 ---
 
@@ -39,15 +38,14 @@
 
 ## Related Queries:
 ```kql
-// Installer name == tor-browser-windows-x86_64-portable-(version).exe
+// Installer name == tor-browser-windows-x86_64-portable-15.0.13.exe
 // Detect the installer being downloaded
 DeviceFileEvents
 | where FileName startswith "tor"
 
 // TOR Browser being silently installed
-// Take note of two spaces before the /S (I don't know why)
 DeviceProcessEvents
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.0.1.exe  /S"
+| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-15.0.13.exe  /S"
 | project Timestamp, DeviceName, ActionType, FileName, ProcessCommandLine
 
 // TOR Browser or service was successfully installed and is present on the disk
@@ -67,7 +65,7 @@ DeviceNetworkEvents
 | project Timestamp, DeviceName, InitiatingProcessAccountName, InitiatingProcessFileName, RemoteIP, RemotePort, RemoteUrl
 | order by Timestamp desc
 
-// User shopping list was created and, changed, or deleted
+// User shopping list was created and, changed/deleted
 DeviceFileEvents
 | where FileName contains "shopping-list.txt"
 ```
@@ -75,14 +73,14 @@ DeviceFileEvents
 ---
 
 ## Created By:
-- **Author Name**: Josh Madakor
-- **Author Contact**: https://www.linkedin.com/in/joshmadakor/
-- **Date**: August 31, 2024
+- **Author Name**: Tochi Ughasoro
+- **Author Contact**: https://www.linkedin.com/in/tochiughasoro
+- **Date**: May 18, 2026
 
 ## Validated By:
-- **Reviewer Name**: 
-- **Reviewer Contact**: 
-- **Validation Date**: 
+- **Reviewer Name**: Josh Maduakor
+- **Reviewer Contact**: https://www.linkedin.com/in/joshmadakor/
+- **Validation Date**: May 10, 2026
 
 ---
 
@@ -94,4 +92,4 @@ DeviceFileEvents
 ## Revision History:
 | **Version** | **Changes**                   | **Date**         | **Modified By**   |
 |-------------|-------------------------------|------------------|-------------------|
-| 1.0         | Initial draft                  | `September  6, 2024`  | `Josh Madakor`   
+| 1.0         | Initial draft                 | `March  6, 2026` | `Tochi Ughasoro`   
